@@ -1,0 +1,41 @@
+package com.ohou.backend.entity;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+@Entity
+@NoArgsConstructor
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
+    private int price;
+
+    @Column(nullable = false)
+    private String brand;
+
+    @Column
+    private int discountRate;
+
+    @OneToMany(mappedBy = "product")
+    private List<Comment> comment = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductImages> productImages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductDetailImages> productDetailImages = new ArrayList<>();
+}
