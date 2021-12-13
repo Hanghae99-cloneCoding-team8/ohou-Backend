@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,17 +38,14 @@ public class HomeService {
             List<ProductListResponseDto> productResponseDtoList = new ArrayList<>();
 
             for (Product product : productPage.toList()) {
-                ProductImages productImage = productImagesRepository.findByProduct(product);
-
+                Page<ProductImages> productImage = productImagesRepository.findByProduct(product, PageRequest.of(0,1));
                 productResponseDtoList.add(ProductListResponseDto.builder()
                         .id(product.getId())
                         .brandName(product.getBrand())
                         .title(product.getTitle())
                         .price(product.getPrice())
                         .reviewCount(product.getComment().size())
-                        .imgSrc(productImage!=null?
-                                productImage.getImgSrc():
-                                "")
+                        .imgSrc(productImage.hasContent() ? productImage.getContent().get(0).getImgSrc() : "")
                         .build());
             }
 
@@ -63,21 +59,35 @@ public class HomeService {
         long productCount = productRepository.count();
         int index = (int) (Math.random() * productCount);
 
-        Page<Product> productList = productRepository.findAll(PageRequest.of(index, 4));
-        List<TodayDeal> todayDealList = productListToTodayDealList(productList);
-        if (productList.hasContent()) {
-            todayDealRepository.deleteAll();
-            todayDealRepository.saveAll(todayDealList);
+        ////////////// 개선사항. QueryDSL 사용 예정.
+        List<Long> alreadyProduct = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
+
+        Page<Product> productPage = productRepository.findAll(PageRequest.of(index, 1));
+        if(productPage.hasContent()){
+            productList.add(productPage.getContent().get(0));
+            alreadyProduct.add(productPage.getContent().get(0).getId());
         }
+        for(int i = 0; i < 3; i++){
+            index = (int) (Math.random() * --productCount);
+            productPage = productRepository.findAllByIdNotIn(alreadyProduct, PageRequest.of(index, 1));
+            productList.add(productPage.getContent().get(0));
+            alreadyProduct.add(productPage.getContent().get(0).getId());
+        }
+        ////////////// 개선사항 끝.
+
+        List<TodayDeal> todayDealList = productListToTodayDealList(productList);
+        todayDealRepository.deleteAll();
+        todayDealRepository.saveAll(todayDealList);
     }
 
-    private List<TodayDeal> productListToTodayDealList(Page<Product> productList) {
+    private List<TodayDeal> productListToTodayDealList(List<Product> productList) {
         List<TodayDeal> todayDealList = new ArrayList<>();
 
         for (Product product : productList) {
             todayDealList.add(TodayDeal.builder()
-                                .product(product)
-                                .build());
+                    .product(product)
+                    .build());
         }
 
         return todayDealList;

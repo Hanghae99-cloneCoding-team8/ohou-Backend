@@ -34,5 +34,8 @@ public class HomeController {
                 .body(productResponseDtoList);
     }
 
-
+    @GetMapping("/main/refresh")
+    public void refreshTodayDeal(){
+        homeService.todayDealRefresh();
+    }
 }

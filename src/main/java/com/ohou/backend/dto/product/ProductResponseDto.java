@@ -19,7 +19,7 @@ public class ProductResponseDto {
     private String title;
     private int reviewCount;
     private int price;
-    private List<Option> option;
-    private List<ProductImages> images;
-    private List<ProductDetailImages> details;
+    private List<OptionResponseDto> option;
+    private List<String> images;
+    private List<String> details;
 }
