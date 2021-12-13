@@ -19,7 +19,7 @@ public class Product {
     private String title;
 
     @Column(nullable = false)
-    private String category;
+    private CategoryEnum category;
 
     @Column(nullable = false)
     private int price;
