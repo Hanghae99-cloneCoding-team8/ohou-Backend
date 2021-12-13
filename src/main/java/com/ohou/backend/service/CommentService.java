@@ -5,14 +5,15 @@ import com.ohou.backend.dto.CommentResponseDto;
 import com.ohou.backend.dto.ReviewRequestDto;
 import com.ohou.backend.entity.Comment;
 import com.ohou.backend.entity.Product;
+import com.ohou.backend.passwordEncryption.AES256Util;
 import com.ohou.backend.repository.CommentRepository;
 import com.ohou.backend.repository.ProductRepository;
 import com.ohou.backend.timeconversion.TimeConversion;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,6 @@ import java.util.List;
 public class CommentService {
 
     private final CommentRepository commentRepository;
-    private final PasswordEncoder passwordEncoder;
     private final ProductRepository productRepository;
 
     public List<CommentResponseDto> getAllReviews(Long productId) {
@@ -39,10 +39,11 @@ public class CommentService {
     }
 
     @Transactional
-    public void writeReview(Long productId, ReviewRequestDto reviewRequestDto) {
+    public void writeReview(Long productId, ReviewRequestDto reviewRequestDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
         Faker faker = new Faker();
-        String enPassword = passwordEncoder.encode(reviewRequestDto.getPassword());
+        AES256Util aes256Util = new AES256Util();
+        String enPassword = aes256Util.encrypt(reviewRequestDto.getPassword());
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> new NullPointerException("상품이 없습니다"));
         Comment comment = new Comment(
@@ -51,15 +52,16 @@ public class CommentService {
                 reviewRequestDto.getContent()
         );
         product.getComment().add(comment);
-        productRepository.save(product);
         comment.setProduct(product);
+        //productRepository.save(product);
         commentRepository.save(comment);
     }
 
     @Transactional
-    public void updateReview(Long reviewId, ReviewRequestDto reviewRequestDto) {
+    public void updateReview(Long reviewId, ReviewRequestDto reviewRequestDto) throws UnsupportedEncodingException, GeneralSecurityException {
         Comment comment = commentRepository.getById(reviewId);
-        if (!passwordEncoder.encode(reviewRequestDto.getPassword()).equals(comment.getPassword()))
+        AES256Util aes256Util = new AES256Util();
+        if (!aes256Util.decrypt(comment.getPassword()).equals(reviewRequestDto.getPassword()))
                 throw new IllegalArgumentException("비밀번호가 틀립니다");
         comment.update(reviewRequestDto.getContent());
     }

@@ -6,6 +6,8 @@ import com.ohou.backend.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.List;
 
 @RestController
@@ -21,12 +23,12 @@ public class CommentController {
     }
 
     @PostMapping("/{productId}/review")
-    public void postReview(@PathVariable Long productId, @RequestBody ReviewRequestDto reviewRequestDto) {
+    public void postReview(@PathVariable Long productId, @RequestBody ReviewRequestDto reviewRequestDto) throws GeneralSecurityException, UnsupportedEncodingException {
         commentService.writeReview(productId, reviewRequestDto);
     }
 
     @PutMapping("/review/{reviewId}") // 수정된부분
-    public void updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto) {
+    public void updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto) throws GeneralSecurityException, UnsupportedEncodingException {
         commentService.updateReview(reviewId, reviewRequestDto);
     }
 
