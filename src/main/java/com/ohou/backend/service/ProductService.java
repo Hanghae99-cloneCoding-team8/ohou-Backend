@@ -28,7 +28,7 @@ public class ProductService {
         }
 
         // 하위항목이 추가로 존재하는 option은 fetch에서 모든 값을 가져올 수 없기 때문에 한 번 더 조회를 해줘야 함.
-        List<Option> optionList = optionRepository.findAllByProduct(product.get());
+        List<OptionEntity> optionList = optionRepository.findAllByProduct(product.get());
         // OptionList to OptionRespoonseDtoList
         List<OptionResponseDto> optionResponseDtoList = optionListToOptionResponseDtoList(optionList);
         // imgSrc 받아오기
@@ -55,9 +55,9 @@ public class ProductService {
                 .build();
     }
 
-    private List<OptionResponseDto> optionListToOptionResponseDtoList(List<Option> optionList) {
+    private List<OptionResponseDto> optionListToOptionResponseDtoList(List<OptionEntity> optionList) {
         List<OptionResponseDto> optionResponseDtoList = new ArrayList<>();
-        for (Option option : optionList) {
+        for (OptionEntity option : optionList) {
             List<String> detailList = new ArrayList<>();
             for(OptionDetails optionDetails: option.getOptionDetails()){
                 detailList.add(optionDetails.getDetail());
