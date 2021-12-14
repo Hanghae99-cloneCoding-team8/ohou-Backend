@@ -5,3 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProductDetailImagesRepository extends JpaRepository<ProductDetailImages, Long> {
 }
+
