@@ -2,6 +2,7 @@ package com.ohou.backend.passwordEncryption;
 
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -14,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
 /**
  * 양방향 암호화 알고리즘인 AES256 암호화를 지원하는 클래스
  */
+@Component
 public class AES256Util {
     private String iv;
     private Key keySpec;
