@@ -3,7 +3,7 @@ package com.ohou.backend.entity;
 public enum CategoryEnum {
     CHRISTMAS("크리스마스"),
     WINTER("겨울용품"),
-    FURNITURE("가구"),
+    NECESSITY("생필품"),
     FABRIC("패브릭"),
     PET("반려용품");
 

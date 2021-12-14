@@ -1,5 +1,7 @@
 package com.ohou.backend.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,8 +10,10 @@ import java.util.List;
 
 @Getter
 @Entity
+@Builder
 @NoArgsConstructor
-public class Option{
+@AllArgsConstructor
+public class OptionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

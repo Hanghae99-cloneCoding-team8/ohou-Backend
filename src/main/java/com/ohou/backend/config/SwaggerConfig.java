@@ -23,7 +23,7 @@ public class SwaggerConfig {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .pathMapping("product")
+                .pathMapping("/")
                 .forCodeGeneration(true)
                 .genericModelSubstitutes(ResponseEntity.class)
                 .ignoredParameterTypes(java.sql.Date.class)
