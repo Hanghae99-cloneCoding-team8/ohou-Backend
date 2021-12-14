@@ -1,5 +1,6 @@
 package com.ohou.backend.service;
 
+import com.ohou.backend.dto.CommentResponseDto;
 import com.ohou.backend.dto.product.OptionResponseDto;
 import com.ohou.backend.dto.product.ProductResponseDto;
 import com.ohou.backend.entity.*;
@@ -17,6 +18,7 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final OptionRepository optionRepository;
+    private final CommentService commentService;
 
 
     public ProductResponseDto getProductInfo(Long productId) {
@@ -39,6 +41,7 @@ public class ProductService {
         for (ProductDetailImages productDetailImages : product.get().getProductDetailImages()) {
             details.add(productDetailImages.getImgSrc());
         }
+        List<CommentResponseDto> comments = commentService.getAllReviews(productId);
 
         return ProductResponseDto.builder()
                 .brandName(product.get().getBrand())
@@ -48,6 +51,7 @@ public class ProductService {
                 .option(optionResponseDtoList)
                 .images(imgSrc)
                 .details(details)
+                .comments(comments)
                 .build();
     }
 
