@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Product {
+public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +30,7 @@ public class Product {
     @Column
     private int discountRate;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Comment> comment = new ArrayList<>();
 
     @OneToMany(mappedBy = "product")
