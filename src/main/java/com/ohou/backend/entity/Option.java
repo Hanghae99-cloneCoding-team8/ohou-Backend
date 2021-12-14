@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Option {
+public class Option{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
