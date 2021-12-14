@@ -1,5 +1,6 @@
 package com.ohou.backend.dto.product;
 
+import com.ohou.backend.dto.CommentResponseDto;
 import com.ohou.backend.entity.Option;
 import com.ohou.backend.entity.ProductDetailImages;
 import com.ohou.backend.entity.ProductImages;
@@ -22,4 +23,5 @@ public class ProductResponseDto {
     private List<OptionResponseDto> option;
     private List<String> images;
     private List<String> details;
+    private List<CommentResponseDto> comments;
 }

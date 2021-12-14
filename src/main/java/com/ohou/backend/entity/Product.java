@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Product extends Timestamped{
+public class Product{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
