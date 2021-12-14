@@ -47,6 +47,7 @@ public class ProductService {
                 .brandName(product.get().getBrand())
                 .title(product.get().getTitle())
                 .reviewCount(product.get().getComment().size())
+                .discountRate(product.get().getDiscountRate())
                 .price(product.get().getPrice())
                 .option(optionResponseDtoList)
                 .images(imgSrc)
