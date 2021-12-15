@@ -15,22 +15,20 @@ public class CommentController {
 
     private final CommentService commentService;
 
-//    @GetMapping("/{productId}/review") // 필요 없음 product 불러올떄 같이
-//    public List<CommentResponseDto> getReviews(@PathVariable Long productId) {
-//        return commentService.getAllReviews(productId);
-//    }
-
-    @PostMapping("/{productId}/review")
+    //리뷰 작성하기
+    @PostMapping("/api/products/{productId}/reviews")
     public void postReview(@PathVariable Long productId, @RequestBody ReviewRequestDto reviewRequestDto) throws GeneralSecurityException, UnsupportedEncodingException {
         commentService.writeReview(productId, reviewRequestDto);
     }
 
-    @PutMapping("/review/{reviewId}") // 수정된부분
+    //리뷰 수정하기
+    @PutMapping("/api/products/{productId}/reviews/{reviewId}") // 수정된부분
     public void updateReview(@PathVariable Long reviewId, @RequestBody ReviewRequestDto reviewRequestDto) throws GeneralSecurityException, UnsupportedEncodingException {
         commentService.updateReview(reviewId, reviewRequestDto);
     }
 
-    @DeleteMapping("/review/{reviewId}") // 수정된 부분
+    //리뷰 삭제하기
+    @DeleteMapping("/api/products/{productId}/reviews/{reviewId}") // 수정된 부분
     public void deleteReview(@PathVariable Long reviewId, @RequestBody String password) throws GeneralSecurityException, UnsupportedEncodingException {
         commentService.deleteReview(reviewId, password);
     }

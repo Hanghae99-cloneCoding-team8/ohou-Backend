@@ -17,7 +17,8 @@ import java.util.List;
 public class HomeController {
     private final HomeService homeService;
 
-    @GetMapping("/main/products")
+    //상품 불러오기
+    @GetMapping("/api/products")
     public ResponseEntity<List<ProductListResponseDto>> product(@RequestParam int page,
                                                                 @RequestParam int size){
 
@@ -26,7 +27,8 @@ public class HomeController {
                 .body(productResponseDtoList);
     }
 
-    @GetMapping("/main/categorys/{categoryName}")
+    //카테고리 필터
+    @GetMapping("/api/products/categorys/{categoryName}")
     public ResponseEntity<List<ProductListResponseDto>> productFilteredByCategory(@PathVariable String categoryName,
                                                                                   @RequestParam int page,
                                                                                   @RequestParam int size){
@@ -36,15 +38,11 @@ public class HomeController {
                 .body(productResponseDtoList);
     }
 
-    @GetMapping("/main/products/todayDeal")
+    //오늘의 딜 불러오기
+    @GetMapping("/api/products/todayDeal")
     public ResponseEntity<List<ProductListResponseDto>> todayDeal(){
         List<ProductListResponseDto> productListResponseDtoList = homeService.getTodayDeal();
         return ResponseEntity.ok()
                 .body(productListResponseDtoList);
-    }
-
-    @GetMapping("/main/refresh")
-    public void refreshTodayDeal(){
-        homeService.todayDealRefresh();
     }
 }
