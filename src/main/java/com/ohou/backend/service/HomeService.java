@@ -44,17 +44,7 @@ public class HomeService {
 
             for (TodayDeal todayDeal : todayDealList) {
                 Product product = todayDeal.getProduct();
-                Page<ProductImages> productImage = productImagesRepository.findByProduct(product, PageRequest.of(0,1));
-                productResponseDtoList.add(ProductListResponseDto.builder()
-                        .id(product.getId())
-                        .brandName(product.getBrand())
-                        .categoryName(product.getCategory())
-                        .title(product.getTitle())
-                        .discountRate(product.getDiscountRate())
-                        .price(product.getPrice())
-                        .reviewCount(product.getComment().size())
-                        .imgSrc(productImage.hasContent() ? productImage.getContent().get(0).getImgSrc() : "")
-                        .build());
+                productResponseDtoList.add(generateProductResponseDto(product));
             }
 
             return productResponseDtoList;
@@ -63,29 +53,32 @@ public class HomeService {
         return null;
     }
 
-
     private List<ProductListResponseDto> productPageToProductResponseDtoList(Page<Product> productPage) {
         if (productPage.hasContent()) {
             List<ProductListResponseDto> productResponseDtoList = new ArrayList<>();
 
             for (Product product : productPage.toList()) {
-                Page<ProductImages> productImage = productImagesRepository.findByProduct(product, PageRequest.of(0,1));
-                productResponseDtoList.add(ProductListResponseDto.builder()
-                        .id(product.getId())
-                        .brandName(product.getBrand())
-                        .categoryName(product.getCategory())
-                        .title(product.getTitle())
-                        .discountRate(product.getDiscountRate())
-                        .price(product.getPrice())
-                        .reviewCount(product.getComment().size())
-                        .imgSrc(productImage.hasContent() ? productImage.getContent().get(0).getImgSrc() : "")
-                        .build());
+                productResponseDtoList.add(generateProductResponseDto(product));
             }
 
             return productResponseDtoList;
         }
 
         return null;
+    }
+
+    private ProductListResponseDto generateProductResponseDto(Product product) {
+        Page<ProductImages> productImage = productImagesRepository.findByProduct(product, PageRequest.of(0,1));
+        return ProductListResponseDto.builder()
+                .id(product.getId())
+                .brandName(product.getBrand())
+                .categoryName(product.getCategory())
+                .title(product.getTitle())
+                .discountRate(product.getDiscountRate())
+                .price(product.getPrice())
+                .reviewCount(product.getComment().size())
+                .imgSrc(productImage.hasContent() ? productImage.getContent().get(0).getImgSrc() : "")
+                .build();
     }
 
     public void todayDealRefresh() {

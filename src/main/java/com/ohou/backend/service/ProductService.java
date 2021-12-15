@@ -44,6 +44,7 @@ public class ProductService {
         List<CommentResponseDto> comments = commentService.getAllReviews(productId);
 
         return ProductResponseDto.builder()
+                .id(product.get().getId())
                 .brandName(product.get().getBrand())
                 .title(product.get().getTitle())
                 .categoryName(product.get().getCategory())
