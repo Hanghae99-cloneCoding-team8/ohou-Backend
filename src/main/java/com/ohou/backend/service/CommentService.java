@@ -23,12 +23,14 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final ProductRepository productRepository;
+    private final AES256Util aes256Util;
 
     public List<CommentResponseDto> getAllReviews(Long productId) {
         List<Comment> allComments = commentRepository.findAllByProductId(productId);
         List<CommentResponseDto> allCommentDtos = new ArrayList<>();
         for (Comment comment : allComments) {
             CommentResponseDto commentResponseDto = new CommentResponseDto(
+                    comment.getId(),
                     comment.getNickname(),
                     comment.getContent(),
                     TimeConversion.timeConversion(comment.getModifiedAt())
@@ -42,7 +44,6 @@ public class CommentService {
     public void writeReview(Long productId, ReviewRequestDto reviewRequestDto) throws UnsupportedEncodingException, GeneralSecurityException {
 
         Faker faker = new Faker();
-        AES256Util aes256Util = new AES256Util();
         String enPassword = aes256Util.encrypt(reviewRequestDto.getPassword());
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> new NullPointerException("상품이 없습니다"));
@@ -60,13 +61,15 @@ public class CommentService {
     @Transactional
     public void updateReview(Long reviewId, ReviewRequestDto reviewRequestDto) throws UnsupportedEncodingException, GeneralSecurityException {
         Comment comment = commentRepository.getById(reviewId);
-        AES256Util aes256Util = new AES256Util();
         if (!aes256Util.decrypt(comment.getPassword()).equals(reviewRequestDto.getPassword()))
-                throw new IllegalArgumentException("비밀번호가 틀립니다");
+            throw new IllegalArgumentException("비밀번호가 틀립니다");
         comment.update(reviewRequestDto.getContent());
     }
 
-    public void deleteReview(Long reviewId) {
+    public void deleteReview(Long reviewId, String password) throws UnsupportedEncodingException, GeneralSecurityException {
+        Comment comment = commentRepository.getById(reviewId);
+        if (!aes256Util.decrypt(comment.getPassword()).equals(password))
+            throw new IllegalArgumentException("비밀번호가 틀립니다");
         commentRepository.deleteById(reviewId);
     }
 }

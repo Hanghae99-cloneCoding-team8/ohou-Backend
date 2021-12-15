@@ -1,6 +1,7 @@
 package com.ohou.backend.controller;
 
 import com.ohou.backend.dto.home.ProductListResponseDto;
+import com.ohou.backend.entity.Product;
 import com.ohou.backend.service.HomeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,13 @@ public class HomeController {
         List<ProductListResponseDto> productResponseDtoList = homeService.getProductFilteredByCategory(category, page, size);
         return ResponseEntity.ok()
                 .body(productResponseDtoList);
+    }
+
+    @GetMapping("/main/products/todayDeal")
+    public ResponseEntity<List<ProductListResponseDto>> todayDeal(){
+        List<ProductListResponseDto> productListResponseDtoList = homeService.getTodayDeal();
+        return ResponseEntity.ok()
+                .body(productListResponseDtoList);
     }
 
     @GetMapping("/main/refresh")

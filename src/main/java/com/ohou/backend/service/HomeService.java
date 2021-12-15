@@ -33,6 +33,36 @@ public class HomeService {
         return productPageToProductResponseDtoList(productPage);
     }
 
+    public List<ProductListResponseDto> getTodayDeal() {
+        List<TodayDeal> todayDealList = todayDealRepository.findAll();
+        return todayDealListToProductResponseDtoList(todayDealList);
+    }
+
+    private List<ProductListResponseDto> todayDealListToProductResponseDtoList(List<TodayDeal> todayDealList) {
+        if(todayDealList.size() > 0){
+            List<ProductListResponseDto> productResponseDtoList = new ArrayList<>();
+
+            for (TodayDeal todayDeal : todayDealList) {
+                Product product = todayDeal.getProduct();
+                Page<ProductImages> productImage = productImagesRepository.findByProduct(product, PageRequest.of(0,1));
+                productResponseDtoList.add(ProductListResponseDto.builder()
+                        .id(product.getId())
+                        .brandName(product.getBrand())
+                        .title(product.getTitle())
+                        .discountRate(product.getDiscountRate())
+                        .price(product.getPrice())
+                        .reviewCount(product.getComment().size())
+                        .imgSrc(productImage.hasContent() ? productImage.getContent().get(0).getImgSrc() : "")
+                        .build());
+            }
+
+            return productResponseDtoList;
+        }
+
+        return null;
+    }
+
+
     private List<ProductListResponseDto> productPageToProductResponseDtoList(Page<Product> productPage) {
         if (productPage.hasContent()) {
             List<ProductListResponseDto> productResponseDtoList = new ArrayList<>();
@@ -43,6 +73,7 @@ public class HomeService {
                         .id(product.getId())
                         .brandName(product.getBrand())
                         .title(product.getTitle())
+                        .discountRate(product.getDiscountRate())
                         .price(product.getPrice())
                         .reviewCount(product.getComment().size())
                         .imgSrc(productImage.hasContent() ? productImage.getContent().get(0).getImgSrc() : "")
