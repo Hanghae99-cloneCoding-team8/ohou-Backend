@@ -26,14 +26,14 @@ public class CommentService {
     private final AES256Util aes256Util;
 
     public List<CommentResponseDto> getAllReviews(Long productId) {
-        List<Comment> allComments = commentRepository.findAllByProductId(productId);
+        List<Comment> allComments = commentRepository.findAllByProductIdOrderByCreatedAtDesc(productId);
         List<CommentResponseDto> allCommentDtos = new ArrayList<>();
         for (Comment comment : allComments) {
             CommentResponseDto commentResponseDto = new CommentResponseDto(
                     comment.getId(),
                     comment.getNickname(),
                     comment.getContent(),
-                    TimeConversion.timeConversion(comment.getModifiedAt())
+                    TimeConversion.timeConversion(comment.getCreatedAt())
             );
             allCommentDtos.add(commentResponseDto);
         }

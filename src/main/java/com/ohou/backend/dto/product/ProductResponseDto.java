@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductResponseDto {
+    private Long id;
     private String brandName;
     private String title;
     private CategoryEnum categoryName;
