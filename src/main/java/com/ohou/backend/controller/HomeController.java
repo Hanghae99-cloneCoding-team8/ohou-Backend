@@ -6,6 +6,7 @@ import com.ohou.backend.service.HomeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,12 +26,12 @@ public class HomeController {
                 .body(productResponseDtoList);
     }
 
-    @GetMapping("/main/categorys")
-    public ResponseEntity<List<ProductListResponseDto>> productFilteredByCategory(@RequestParam String category,
+    @GetMapping("/main/categorys/{categoryName}")
+    public ResponseEntity<List<ProductListResponseDto>> productFilteredByCategory(@PathVariable String categoryName,
                                                                                   @RequestParam int page,
                                                                                   @RequestParam int size){
 
-        List<ProductListResponseDto> productResponseDtoList = homeService.getProductFilteredByCategory(category, page, size);
+        List<ProductListResponseDto> productResponseDtoList = homeService.getProductFilteredByCategory(categoryName, page, size);
         return ResponseEntity.ok()
                 .body(productResponseDtoList);
     }
