@@ -46,6 +46,7 @@ public class ProductService {
         return ProductResponseDto.builder()
                 .brandName(product.get().getBrand())
                 .title(product.get().getTitle())
+                .categoryName(product.get().getCategory())
                 .reviewCount(product.get().getComment().size())
                 .discountRate(product.get().getDiscountRate())
                 .price(product.get().getPrice())
