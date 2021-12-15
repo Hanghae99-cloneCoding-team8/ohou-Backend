@@ -1,6 +1,7 @@
 package com.ohou.backend.dto.product;
 
 import com.ohou.backend.dto.CommentResponseDto;
+import com.ohou.backend.entity.CategoryEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +16,7 @@ import java.util.List;
 public class ProductResponseDto {
     private String brandName;
     private String title;
+    private CategoryEnum categoryName;
     private int reviewCount;
     private int discountRate;
     private int price;
