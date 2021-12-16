@@ -172,7 +172,6 @@ public class seleniumCrawling {
 
                 /*
                     private String imgSrc;
-
                     @ManyToOne(fetch = FetchType.LAZY)
                     @JoinColumn(nullable = false)
                     private Product product;
