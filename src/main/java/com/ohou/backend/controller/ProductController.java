@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ProductController {
     private final ProductService productService;
 
+    //제품 상세 페이지
     @GetMapping("/api/products/{productId}")
     public ResponseEntity<ProductResponseDto> getProductInfo(@PathVariable Long productId){
         ProductResponseDto productResponseDto = productService.getProductInfo(productId);
