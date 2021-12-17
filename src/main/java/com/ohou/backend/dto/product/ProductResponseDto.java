@@ -1,6 +1,6 @@
 package com.ohou.backend.dto.product;
 
-import com.ohou.backend.dto.CommentResponseDto;
+import com.ohou.backend.dto.review.CommentResponseDto;
 import com.ohou.backend.entity.CategoryEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,4 +1,4 @@
-package com.ohou.backend.dto;
+package com.ohou.backend.dto.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

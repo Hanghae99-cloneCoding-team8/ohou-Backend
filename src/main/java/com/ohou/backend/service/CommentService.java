@@ -1,8 +1,8 @@
 package com.ohou.backend.service;
 
 import com.github.javafaker.Faker;
-import com.ohou.backend.dto.CommentResponseDto;
-import com.ohou.backend.dto.ReviewRequestDto;
+import com.ohou.backend.dto.review.CommentResponseDto;
+import com.ohou.backend.dto.review.ReviewRequestDto;
 import com.ohou.backend.entity.Comment;
 import com.ohou.backend.entity.Product;
 import com.ohou.backend.passwordEncryption.AES256Util;
