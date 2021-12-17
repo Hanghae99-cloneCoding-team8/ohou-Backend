@@ -10,6 +10,8 @@ class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "http://localhost:8080");
+                .allowedOrigins("http://localhost:3000", "http://localhost:8080",
+                        "http://picapipicca.shop.s3-website.ap-northeast-2.amazonaws.com",
+                        "http://picapipicca.shop");
     }
 }
