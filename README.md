@@ -90,7 +90,7 @@ restTemplate.delete("/api/products/reviews/" + commentId, request);
 ```
 
 **오류 발생 이유**: restTemplate.delete을 사용하면 request 객체를 매개변수로 받을 수가 없어서 계속 에러가 났다.
-아래 코드를 보면 request 객체를 받을 수 있는 메소득 없다.
+아래 코드를 보면 request 객체를 받을 수 있는 메소 없다.
 
 ```java
 
