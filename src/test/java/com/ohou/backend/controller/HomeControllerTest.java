@@ -13,8 +13,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -56,7 +55,7 @@ class HomeControllerTest {
 
         ProductListResponseDto[] responseList = response.getBody();
         assertNotNull(responseList);
-        assertEquals(10, responseList.length);
+        assertTrue(GET_PRODUCT_SIZE >= responseList.length);
 
         // 상품 존재 여부 확인
         ProductListResponseDto productResponse = Arrays.stream(responseList)
@@ -97,7 +96,7 @@ class HomeControllerTest {
 
         ProductListResponseDto[] responseList = response.getBody();
         assertNotNull(responseList);
-        assertEquals(10, responseList.length);
+        assertTrue(GET_PRODUCT_SIZE >= responseList.length);
 
         // 상품 존재 여부 확인
         ProductListResponseDto productResponse = Arrays.stream(responseList)
@@ -127,6 +126,6 @@ class HomeControllerTest {
 
         ProductListResponseDto[] responseList = response.getBody();
         assertNotNull(responseList);
-        assertEquals(TODAY_DEAL_COUNT, responseList.length);
+        assertTrue(TODAY_DEAL_COUNT >= responseList.length);
     }
 }
