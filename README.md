@@ -81,7 +81,7 @@
 
 ## Trouble Shooting
 
-- restTemplate의 Delete 메소드 사용시, 테스트 케이스가 계속 실패
+1.  restTemplate의 Delete 메소드 사용시, 테스트 케이스가 계속 실패
 
 *오류 코드*
 
@@ -146,5 +146,14 @@ ResponseEntity<String> resp = restTemplate.exchange("/api/products/reviews/" + c
 exchange 메소드를 사용하여 delete 요청이 request를 받을 수 있도록 설정해주어서 해결 했다.
 
 <br>
+
+2. Jsop 을 사용하여 오늘의 집 웹 크롤링 실패
+
+**오류 발생 이유**: 정적 웹 페이지가 아닌, 무한 스크롤 등의 기능이 구현된 동적 웹 페이지는 Jsoup 으로 크롤링이 힘들다. 
+<br>
+
+**오류 해결**: Selinium 을 사용했다. <br>
+또한 제품 상세 정보를 크롤링 하기 위해서는, 직접 상품 상세 페이지를 하나하나 들어가서 크롤링 해와야 한다.<br>
+이 때, 상품 URL을 먼저 크롤링 해온 후, driver.get(); 메소드로 접속하고, driver.close(); 메소드로 접속 해제를 해주었다.
 
 <hr>
