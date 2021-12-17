@@ -1,9 +1,7 @@
 package com.ohou.backend.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ohou.backend.dto.CommentResponseDto;
-import com.ohou.backend.dto.home.ProductListResponseDto;
+import com.ohou.backend.dto.review.CommentResponseDto;
 import com.ohou.backend.dto.product.OptionResponseDto;
 import com.ohou.backend.dto.product.ProductResponseDto;
 import com.ohou.backend.entity.CategoryEnum;
@@ -11,12 +9,10 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

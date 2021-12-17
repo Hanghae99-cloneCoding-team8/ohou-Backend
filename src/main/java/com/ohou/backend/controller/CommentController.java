@@ -1,6 +1,6 @@
 package com.ohou.backend.controller;
 
-import com.ohou.backend.dto.ReviewRequestDto;
+import com.ohou.backend.dto.review.ReviewRequestDto;
 import com.ohou.backend.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

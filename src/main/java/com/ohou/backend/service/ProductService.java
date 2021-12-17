@@ -1,6 +1,6 @@
 package com.ohou.backend.service;
 
-import com.ohou.backend.dto.CommentResponseDto;
+import com.ohou.backend.dto.review.CommentResponseDto;
 import com.ohou.backend.dto.product.OptionResponseDto;
 import com.ohou.backend.dto.product.ProductResponseDto;
 import com.ohou.backend.entity.*;

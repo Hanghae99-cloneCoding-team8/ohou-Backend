@@ -78,13 +78,14 @@ class CommentControllerTest {
                     "/api/products/" + productId,
                     ProductResponseDto.class);
 
+
             assertEquals(HttpStatus.OK, response.getStatusCode());
             ProductResponseDto productResponseDto = response.getBody();
             assertNotNull(productResponseDto);
             assertNotNull(productResponseDto.getComments());
             // 위에 새로 입력된 댓글 ID 스캔
             long commentId = -1;
-            for (com.ohou.backend.dto.CommentResponseDto comment : productResponseDto.getComments()) {
+            for (com.ohou.backend.dto.review.CommentResponseDto comment : productResponseDto.getComments()) {
                 if (comment.getContent().equals("good good")) {
                     commentId = comment.getCommentId();
                     break;
@@ -107,7 +108,7 @@ class CommentControllerTest {
             assertNotNull(productResponseDto.getComments());
             // 위에 새로 입력된 댓글 ID 스캔
             String content = "";
-            for (com.ohou.backend.dto.CommentResponseDto comment : productResponseDto.getComments()) {
+            for (com.ohou.backend.dto.review.CommentResponseDto comment : productResponseDto.getComments()) {
                 if (comment.getContent().equals("bad bad")) {
                     content = comment.getContent();
                     break;
@@ -141,7 +142,7 @@ class CommentControllerTest {
             assertNotNull(productResponseDto.getComments());
             // 위에 새로 입력된 댓글 ID 스캔
             long commentId = -1;
-            for (com.ohou.backend.dto.CommentResponseDto comment : productResponseDto.getComments()) {
+            for (com.ohou.backend.dto.review.CommentResponseDto comment : productResponseDto.getComments()) {
                 if (comment.getContent().equals("good good")) {
                     commentId = comment.getCommentId();
                     break;
@@ -184,13 +185,14 @@ class CommentControllerTest {
             assertNotNull(productResponseDto.getComments());
             // 위에 새로 입력된 댓글 ID 스캔
             long commentId = -1;
-            for (com.ohou.backend.dto.CommentResponseDto comment : productResponseDto.getComments()) {
+            for (com.ohou.backend.dto.review.CommentResponseDto comment : productResponseDto.getComments()) {
                 if (comment.getContent().equals("bad bad")) {
                     commentId = comment.getCommentId();
                     break;
                 }
             }
             assertNotEquals(-1, commentId);
+            // restTemplate delete가 request를 받지않아서 exchange로 받을수 잇도록 변경
             ResponseEntity<String> resp = restTemplate.exchange("/api/products/reviews/" + commentId, HttpMethod.DELETE, request, String.class);
             assertEquals(HttpStatus.OK, resp.getStatusCode());
 
@@ -205,7 +207,7 @@ class CommentControllerTest {
             assertNotNull(productResponseDto.getComments());
             // 댓글 ID 스캔
             long deletedId = commentId;
-            for (com.ohou.backend.dto.CommentResponseDto comment : productResponseDto.getComments()) {
+            for (com.ohou.backend.dto.review.CommentResponseDto comment : productResponseDto.getComments()) {
                 if (comment.getCommentId() == deletedId) {
                     deletedId = -1;
                     break;
