@@ -19,7 +19,7 @@
 
 ## 와이어 프레임
 
-https://www.figma.com/file/fFlzAvcm2FpFSlUiOPCLu4/7조-오늘의-집?node-id=0%3A1
+[![Figma](https://user-images.githubusercontent.com/93498724/146488344-782d62c7-c010-47e2-83cb-5be70cfc4a91.png)](https://www.figma.com/file/fFlzAvcm2FpFSlUiOPCLu4/7조-오늘의-집?node-id=0%3A1)
 <hr>
 
 
@@ -31,6 +31,7 @@ https://www.figma.com/file/fFlzAvcm2FpFSlUiOPCLu4/7조-오늘의-집?node-id=0%3
 
 ## API 설계
 
+![api img](https://user-images.githubusercontent.com/93498724/146489080-5c731fd0-69c3-4e4b-b07a-14ca85e52875.png)
 
 <hr>
 
